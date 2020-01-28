@@ -20,13 +20,17 @@ import { AuthorsListComponent } from './components/authors-list/authors-list.com
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
 import { BookCategoriesComponent } from './components/book-categories/book-categories.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
    imports: [
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      MatSidenavModule,
+      BrowserAnimationsModule
    ],
    declarations: [
     AppComponent,
