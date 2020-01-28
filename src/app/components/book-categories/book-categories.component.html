@@ -1,0 +1,12 @@
+
+<div *ngIf='loading' class='center text-center'>
+  <br><br>
+  <span class="spinner-border spinner-border-bg mr-1"></span>
+</div>
+<ul *ngIf='!loading' class="nav nav-pills flex-column" id="myTab" role="tablist">
+  <li class="nav-item" *ngFor='let category of categories; let i = index'>
+    <a class="nav-link text-light" [routerLink]="['/','books', 'page', '1', category.id]">
+      {{category.bookCategory}}
+    </a>
+  </li>
+</ul>
