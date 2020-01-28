@@ -1,4 +1,9 @@
+import { BookService } from './../../_services/book/book.service';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Book } from '../../_models/_simplified/book';
+import { AuthenticationService } from '../../_services/authentication/authentication.service';
 
 @Component({
   selector: 'app-add-book',
@@ -13,7 +18,8 @@ export class AddBookComponent implements OnInit {
   error = '';
   postError = false;
 
-  constructor(private bookService: ,
+  constructor(private authService: AuthenticationService,
+              private bookService: BookService,
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router) {
@@ -23,12 +29,13 @@ export class AddBookComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z\d$@$!%*?&].{8,}')]],
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
-      birthDate: ['', [Validators.required]]
+    this.postForm = this.formBuilder.group({
+      title: ['', [Validators.required]],
+      authorId: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      categoriesIds: ['', [Validators.required]],
+      bookImage: ['', [Validators.required]],
+      description: ['', [Validators.required]]
     });
 
   }
@@ -36,31 +43,24 @@ export class AddBookComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if (this.registerForm.invalid) {
+    if (this.postForm.invalid) {
       return;
     }
 
-    const user = new UserRegister();
+    const book = new Book();
 
-    user.email = this.registerForm.controls.email.value;
-    user.password = this.registerForm.controls.password.value;
-    user.firstName = this.registerForm.controls.firstName.value;
-    user.lastName = this.registerForm.controls.lastName.value;
-    user.birthDate = this.registerForm.controls.birthDate.value;
+    book.title = this.postForm.controls.title.value;
+    book.authorId = this.postForm.controls.authorId.value;
+    book.price = this.postForm.controls.price.value;
+    book.categoriesId = this.postForm.controls.categoriesIds.value;
+    book.bookImage = this.postForm.controls.image.value;
+    book.description = this.postForm.controls.description.value;
 
     this.loading = true;
 
-    this.authService.register(user).pipe(first()).subscribe(data => {
-      this.loading = false;
-      this.router.navigate(['/login']);
-    },
-    error => {
-      this.loading = false;
-      console.log(error);
-      this.registerError = true;
-    });
+
   }
 
-  get f() { return this.registerForm.controls; }
+  get f() { return this.postForm.controls; }
 
 }
