@@ -1,0 +1,16 @@
+<div>
+  <div *ngIf='loading'>
+    Author is loading!
+  </div>
+  <div *ngIf='!loading'>
+    Name: {{author.firstName}},
+    Surname: {{author.lastName}},
+    Birth Date: {{author.birthDate}},
+    Description: {{author.description}}
+    <br>
+    <div *ngFor='let book of author.books; let i = index'>
+      Title: {{book.title}},
+      Price: {{book.price}},
+    </div>
+  </div>
+</div>
