@@ -1,0 +1,11 @@
+<div>
+  <div *ngIf='loading' class='center text-center'>
+    <br><br>
+    <span class="spinner-border spinner-border-bg mr-1"></span>
+  </div>
+  <div *ngIf='!loading'>
+    <div *ngFor='let book of books; let i = index' >
+      <a [routerLink]="['/','books', book.id]"><app-book-list-item [book]='book'></app-book-list-item></a><br>
+    </div>
+  </div>
+</div>
