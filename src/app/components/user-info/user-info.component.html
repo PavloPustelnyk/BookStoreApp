@@ -1,0 +1,11 @@
+<h4 class="card-header text-center">Personal Profile</h4>
+<div *ngIf='loading' class='center text-center'>
+  <br><br>
+  <span class="spinner-border spinner-border-bg mr-1"></span>
+</div>
+<div *ngIf='!loading'>
+  <p>Email: {{this.user.email}}</p>
+  <p>Name: {{this.user.firstName}}</p>
+  <p>Surname: {{this.user.lastName}}</p>
+  <p>Birth Date: {{this.user.birthDate | date:'longDate'}}</p>
+</div>
