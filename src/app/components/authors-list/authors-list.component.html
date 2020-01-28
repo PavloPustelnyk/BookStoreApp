@@ -1,0 +1,10 @@
+<div>
+  <div *ngIf='loading'>
+    Authors is loading!
+  </div>
+  <div *ngIf='!loading'>
+    <div *ngFor='let author of authorService.authors; let i = index'>
+      <a [routerLink]="['/','authors', author.id]"><app-author-list-item [author]='author'></app-author-list-item></a>
+    </div>
+  </div>
+</div>
