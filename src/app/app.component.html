@@ -3,14 +3,5 @@
 
 <!-- main app container -->
 <div class="container">
-  <div class="row">
-    <br><br>
-    <div class="col-2 position-fixed mt-3 bg-dark" style="border: 2px; border-radius: 10px;">
-      <app-book-categories></app-book-categories>
-    </div>
-    <div class="col-8 offset-md-3 mt-3">
-      <router-outlet></router-outlet>
-    </div>
-    <div class="col-2"></div>
-  </div>
+  <router-outlet></router-outlet>
 </div>
