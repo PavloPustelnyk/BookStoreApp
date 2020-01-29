@@ -15,4 +15,15 @@ export class AuthorListItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  getAuthorImage() {
+    if (!this.author.authorImage) {
+      return 'assets/images/default_author.png';
+    }
+    return this.author.authorImage;
+  }
+
+  getAuthorName() {
+    return this.author.firstName + ' ' + this.author.lastName;
+  }
+
 }

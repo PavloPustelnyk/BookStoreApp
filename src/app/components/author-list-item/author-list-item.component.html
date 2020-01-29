@@ -1,8 +1,12 @@
-
-  <div >
-    Name: {{author.firstName}},
-    Surname: {{author.lastName}},
-    Birth Date: {{author.birthDate}},
-    Description: {{author.description}}
-    <br>
+<div class="card m-2 h-100" id="card">
+  <img class="card-img-top p-2" [src]="getAuthorImage()" />
+  <div class="card-block ml-3 mr-3">
+    <h5 class="card-title mt-3">
+      {{ getAuthorName() }}
+    </h5>
+    <div class="card-text mt-3">
+      <div class="text-truncate font-italic">{{ author.description }}</div>
+      <div>Books: {{author.books.length}}</div>
+    </div>
   </div>
+</div>
