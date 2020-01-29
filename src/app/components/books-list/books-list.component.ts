@@ -28,14 +28,10 @@ export class BooksListComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.loading = true;
-      console.log('start sub');
-      if (this.page !== Number(params.get('pageNo')) && !params.get('categoryId')) {
-        console.log('us');
+      if (!params.get('categoryId')) {
         this.loadPagesCount();
         this.loadBookPage();
-      } else if (this.page !== Number(params.get('pageNo')) && params.get('categoryId')
-        || this.categoryId !== Number(params.get('categoryId'))) {
-        console.log('categ');
+      } else {
         this.loadCategoryPagesCount(Number(params.get('categoryId')));
         this.loadBookPageOfCategory(Number(params.get('categoryId')));
       }
@@ -47,28 +43,33 @@ export class BooksListComponent implements OnInit {
   }
 
   private loadPagesCount() {
-    this.bookService.getPagesCount().pipe(first()).subscribe((data: number) => {
-      this.pagesCount = data;
-    },
-    error => {
-      console.log(error);
-    });
+    this.bookService
+      .getPagesCount()
+      .subscribe((data: number) => {
+        this.pagesCount = data;
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   private loadCategoryPagesCount(categoryId: number) {
-    this.bookService.getCategoryPagesCount(categoryId).pipe(first()).subscribe((data: number) => {
-      this.pagesCount = data;
-      console.log('pages' + data);
-    },
-    error => {
-      console.log(error);
-    });
+    this.bookService
+      .getCategoryPagesCount(categoryId)
+      .subscribe((data: number) => {
+        this.pagesCount = data;
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   private loadBookPage() {
     this.page = Number(this.route.snapshot.paramMap.get('pageNo'));
 
-    this.bookService.getBooksPage(this.page).pipe(first()).subscribe((data: BookDetailed[]) => {
+    this.bookService
+      .getBooksPage(this.page)
+      .subscribe((data: BookDetailed[]) => {
         this.books = data;
         this.loading = false;
       }, error => {
@@ -79,11 +80,14 @@ export class BooksListComponent implements OnInit {
   private loadBookPageOfCategory(categoryId: number) {
     this.page = Number(this.route.snapshot.paramMap.get('pageNo'));
     this.categoryId = categoryId;
-    this.bookService.getBooksPageOfCategory(this.page, categoryId).pipe(first()).subscribe((data: BookDetailed[]) => {
-      this.books = data;
-      this.loading = false;
-    }, error => {
-      console.log(error);
-    });
+
+    this.bookService
+      .getBooksPageOfCategory(this.page, categoryId)
+      .subscribe((data: BookDetailed[]) => {
+        this.books = data;
+        this.loading = false;
+      }, error => {
+        console.log(error);
+      });
   }
 }
