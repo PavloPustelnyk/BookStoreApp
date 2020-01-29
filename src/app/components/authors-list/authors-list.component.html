@@ -1,18 +1,25 @@
 <div class="row mt-3">
   <br><br>
-  <div class="col-2 bg-dark" style="border: 2px; border-radius: 10px;">
-    <app-book-categories></app-book-categories>
+  <div class="col-sm-1"></div>
+  <div *ngIf='loading' class='col-10 center text-center'>
+    <br><br>
+    <span class="spinner-border spinner-border-bg mr-1"></span>
   </div>
-  <div class="col-8">
-    <div *ngIf='loading' class='center text-center'>
-      <br><br>
-      <span class="spinner-border spinner-border-bg mr-1"></span>
-    </div>
-    <div *ngIf='!loading'>
-      <div *ngFor='let author of authorService.authors; let i = index'>
-        <a [routerLink]="['/','authors', author.id]"><app-author-list-item [author]='author'></app-author-list-item></a>
+  <div *ngIf='!loading' class="col-10">
+      <div class="row no-gutters">
+          <div *ngFor='let author of authors;' class="col-sm-3 p-3">
+            <a [routerLink]="['/','authors', author.id]"><app-author-list-item [author]='author'></app-author-list-item></a><br>
+          </div>
       </div>
-    </div>
   </div>
-  <div class="col-2"></div>
+  <div class="col-sm-1"></div>
 </div>
+<div class="row uk-margin-bottom text-center mt-3">
+  <div class="col-10 offset-2 mt-2 text-center center">
+    <button [routerLink]="['/','authors', 'page', i + 1]"
+      *ngFor='let p of counter(pagesCount); let i = index' [disabled]='i + 1 === this.page' class="btn btn-light">
+      {{i + 1}}
+    </button>
+  </div>
+</div>
+<div class="pt-4"></div>
