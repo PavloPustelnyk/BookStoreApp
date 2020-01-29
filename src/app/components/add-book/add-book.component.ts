@@ -1,5 +1,5 @@
 import { BookService } from './../../_services/book/book.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Book } from '../../_models/_simplified/book';
@@ -17,15 +17,14 @@ export class AddBookComponent implements OnInit {
   loading = false;
   error = '';
   postError = false;
+  base64file: string;
 
   constructor(private authService: AuthenticationService,
               private bookService: BookService,
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private router: Router) {
-    if (this.authService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
+              private router: Router,
+              private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -34,8 +33,8 @@ export class AddBookComponent implements OnInit {
       authorId: ['', [Validators.required]],
       price: ['', [Validators.required]],
       categoriesIds: ['', [Validators.required]],
-      bookImage: ['', [Validators.required]],
-      description: ['', [Validators.required]]
+      image: [''],
+      description: ['']
     });
 
   }
@@ -50,15 +49,40 @@ export class AddBookComponent implements OnInit {
     const book = new Book();
 
     book.title = this.postForm.controls.title.value;
-    book.authorId = this.postForm.controls.authorId.value;
-    book.price = this.postForm.controls.price.value;
-    book.categoriesId = this.postForm.controls.categoriesIds.value;
-    book.bookImage = this.postForm.controls.image.value;
+    book.authorId = parseInt(this.postForm.controls.authorId.value, 10);
+    book.price = parseFloat(this.postForm.controls.price.value);
+    book.categoriesId = this.postForm.controls.categoriesIds.value.split(',').map((i: string) => parseInt(i, 10));
+    book.bookImage = this.base64file;
     book.description = this.postForm.controls.description.value;
 
     this.loading = true;
 
+    this.bookService
+      .postBook(book)
+      .subscribe(data => {
+        this.loading = false;
+        alert('success');
+      },
+      error => {
+        this.loading = false;
+        alert(error);
+      });
 
+  }
+
+  onFileChange(event) {
+    console.log('chaneg');
+    const reader = new FileReader();
+
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.base64file = reader.result.toString();
+        console.log(this.base64file);
+        this.cd.markForCheck();
+      };
+    }
   }
 
   get f() { return this.postForm.controls; }

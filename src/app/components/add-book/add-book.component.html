@@ -1,8 +1,8 @@
-<div class="col-md-6 offset-md-3 mt-5">
+<div class="col-md-4 offset-md-4 mt-5">
   <div class="card">
       <h4 class="card-header text-center">BookStore Register</h4>
       <div class="card-body">
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
               <div class="form-group">
                   <label for="title">Title</label>
                   <input type="text" formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.title.errors }"/>
@@ -33,16 +33,14 @@
               </div>
               <div class="form-group">
                 <label for="image">Book Image</label>
-                <input type="file" formControlName="image" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.image.errors }"/>
-                <div *ngIf="submitted && f.image.errors" class="invalid-feedback">
-                  <div *ngIf="f.image.errors.required">Book Image is required</div>
-                </div>
+                <input type="file" formControlName="image" class="form-control" (change)='onFileChange($event)'
+                [ngClass]="{ 'is-invalid': submitted && f.image.errors }"/>
               </div>
               <div class="form-group">
                 <label for="description">Description</label>
                 <input type="text" formControlName="description" class="form-control"/>
               </div>
-              <button [disabled]="loading" class="btn btn-primary">
+              <button [disabled]="loading" class="btn btn-dark container">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                 Add Book
               </button>
