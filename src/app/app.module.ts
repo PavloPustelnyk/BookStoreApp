@@ -22,6 +22,8 @@ import { HomeComponent } from './components/home/home.component';
 import { BookCategoriesComponent } from './components/book-categories/book-categories.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddBookComponent } from './components/add-book/add-book.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 @NgModule({
    imports: [
@@ -46,7 +48,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AuthorsListComponent,
     NavBarComponent,
     HomeComponent,
-    BookCategoriesComponent
+    BookCategoriesComponent,
+    AddBookComponent,
+    AdminPanelComponent
    ],
    providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
