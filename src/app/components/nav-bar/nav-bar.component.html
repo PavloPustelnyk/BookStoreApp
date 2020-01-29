@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
   <a class="navbar-brand" [routerLink]="['/']">BookStore</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,16 +29,19 @@
 
   <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
     <ul class="navbar-nav">
-      <li *ngIf='authService.currentUserValue' class="nav-item">
+      <li *ngIf='authService.getCurrentRole() && authService.getCurrentRole() === adminRole' class="nav-item">
+        <a class="nav-link" [routerLink]="['/','admin']">Admin</a>
+      </li>
+      <li *ngIf='isAuthenticated()' class="nav-item">
         <a class="nav-link" [routerLink]="['/','user', 'info']">Profile</a>
       </li>
-      <li *ngIf='authService.currentUserValue' class="nav-item">
+      <li *ngIf='isAuthenticated()' class="nav-item">
         <a class="nav-link" (click)='logout()'>Sign Out</a>
       </li>
-      <li *ngIf='!authService.currentUserValue' class="nav-item">
+      <li *ngIf='!isAuthenticated()' class="nav-item">
         <a class="nav-link" [routerLink]="['/','login']">Log In</a>
       </li>
-      <li *ngIf='!authService.currentUserValue' class="nav-item">
+      <li *ngIf='!isAuthenticated()' class="nav-item">
         <a class="nav-link" [routerLink]="['/','register']">Register</a>
       </li>
     </ul>
