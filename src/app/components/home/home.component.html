@@ -1,12 +1,23 @@
-
-<div class="row mt-3">
-  <br><br>
-  <div class="col-2 bg-dark" style="border: 2px; border-radius: 10px;">
-    <app-book-categories></app-book-categories>
+<div class="row no-gutters" style="height: 100%; width: 100%; position: absolute; top: 0; left: 0;">
+  <div class="col-sm-6 text-center">
+    <a [routerLink]="['/', 'authors']">
+      <img src="assets/images/authors3.jpg" class="image-fluid w-100 h-100">
+      <div class="gallery-text">
+        <div style="position: absolute; top: 45%; left: 0%; text-align: center; width: 100%;">
+          <h1 class="display-2 font-weight-bold text-white">Authors</h1>
+        </div>
+      </div>
+    </a>
   </div>
-  <div class="col-8">
-    MAIN WORKS
+  <div class="col-sm-6 text-center">
+    <a [routerLink]="['/', 'books']">
+      <img src="assets/images/books3.jpg" class="image-fluid w-100 h-100">
+      <div class="gallery-text">
+        <div style="position: absolute; top: 45%; left: 0%; text-align: center; width: 100%;">
+          <h1 class="display-2 font-weight-bold text-white">Books</h1>
+        </div>
+      </div>
+    </a>
   </div>
-  <div class="col-2"></div>
 </div>
 
