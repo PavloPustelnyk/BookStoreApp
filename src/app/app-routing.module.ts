@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { BookInfoComponent } from './components/book-info/book-info.component';
@@ -10,6 +10,8 @@ import { AuthorsListComponent } from './components/authors-list/authors-list.com
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { BookCategoriesComponent } from './components/book-categories/book-categories.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { RoleGuard } from './_helpers/role.guard';
 
 
 const routes: Routes = [
@@ -25,6 +27,7 @@ const routes: Routes = [
   {path: 'authors/page/:pageNo', component: AuthorsListComponent},
   {path: 'books', redirectTo: 'books/page/1', pathMatch: 'full'},
   {path: 'authors', redirectTo: 'authors/page/1', pathMatch: 'full'},
+  {path: 'admin', component: AdminPanelComponent, canActivate: [RoleGuard], data: { role: 'admin' }},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '404'}
 ];
