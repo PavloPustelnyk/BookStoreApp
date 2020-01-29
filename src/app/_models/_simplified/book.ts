@@ -2,9 +2,9 @@ import { BaseModel } from './base-model';
 
 export class Book extends BaseModel {
   public title: string;
-  public authorId: string;
+  public authorId: number;
   public price: number;
   public categoriesId: number[];
-  public bookImage: FormData;
+  public bookImage: string;
   public description: string;
 }
