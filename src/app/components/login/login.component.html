@@ -1,4 +1,4 @@
-<div class="col-md-6 offset-md-3 mt-5">
+<div class="col-md-4 offset-md-4 mt-5">
   <div class="card">
       <h4 class="card-header text-center">BookStore Log In</h4>
       <div class="card-body">
@@ -17,7 +17,7 @@
                     <div *ngIf="f.password.errors.required">Password is required</div>
                 </div>
               </div>
-              <button [disabled]="loading" class="btn btn-primary">
+              <button [disabled]="loading" class="btn btn-dark container">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                 Login
               </button>
