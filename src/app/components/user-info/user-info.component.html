@@ -1,4 +1,4 @@
-<h4 class="card-header text-center">Personal Profile</h4>
+<h4 class="mt-3 card-header text-center">Personal Profile</h4>
 <div *ngIf='loading' class='center text-center'>
   <br><br>
   <span class="spinner-border spinner-border-bg mr-1"></span>
@@ -7,5 +7,11 @@
   <p>Email: {{this.user.email}}</p>
   <p>Name: {{this.user.firstName}}</p>
   <p>Surname: {{this.user.lastName}}</p>
-  <p>Birth Date: {{this.user.birthDate | date:'longDate'}}</p>
+  <p>Birth Date: {{this.user.birthDate | date:'longDate'}}</p><br><br>
+  <div>
+    <h3>Favorites Books</h3>
+    <p *ngFor='let book of user.likedBooks'>
+      <a [routerLink]="['/', 'books', book.id]">{{book.title}}</a>
+    </p>
+  </div>
 </div>
