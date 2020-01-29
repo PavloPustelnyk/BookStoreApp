@@ -1,16 +1,23 @@
-<div>
-  <div *ngIf='loading'>
-    Author is loading!
-  </div>
-  <div *ngIf='!loading'>
-    Name: {{author.firstName}},
-    Surname: {{author.lastName}},
-    Birth Date: {{author.birthDate}},
-    Description: {{author.description}}
-    <br>
-    <div *ngFor='let book of author.books; let i = index'>
-      Title: {{book.title}},
-      Price: {{book.price}},
+<div *ngIf='loading' class='center text-center'>
+  <br><br>
+  <span class="spinner-border spinner-border-bg mr-1"></span>
+</div>
+<div *ngIf="!loading" class="row mt-3">
+  <div class="col-sm-1"></div>
+  <div class="col-10">
+    <div class="col-sm-4">
+      <img [src]="getAuthorImage()" class="float-left" style="height: 400px;">
+    </div>
+    <div class="col-sm-7 offset-5 mr-2">
+      <h1 class="text-center">{{getAuthorName()}}</h1>
+      <div>
+        <h2 class="">Books</h2>
+        <a *ngFor="let book of author.books; let i = index" [routerLink]="['/', 'books', book.id]">
+          {{book.title}}<br>
+          Price: {{book.price.toFixed(1)}}<br><br>
+        </a>
+      </div>
     </div>
   </div>
+  <div class="col-1"></div>
 </div>
