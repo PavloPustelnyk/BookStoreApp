@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BookDetailed } from '../../_models/_detailed/book-detailed';
+import { Book } from 'src/app/_models/_simplified/book';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,17 @@ export class BookService {
       },
       error => {
         console.log(error);
+      }));
+  }
+
+  postBook(book: Book) {
+    return this.httpClient
+      .post<Book>(`${environment.apiUrl}/books`, book)
+      .pipe(map((data: Book) => {
+        alert('Added ' + data);
+      },
+      error => {
+        alert('Error ' + error);
       }));
   }
 
