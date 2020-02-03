@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../../_services/book/book.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookDetailed } from '../../_models/_detailed/book-detailed';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../../_services/authentication/authentication.service';
@@ -15,54 +15,61 @@ import { UserDetailed } from '../../_models/_detailed/user-detailed';
 })
 export class BookInfoComponent implements OnInit {
 
-  private user: UserDetailed;
-
-  public bookId: number;
-
-  public book: BookDetailed;
-
-  public loading = true;
-
-  public likeLoading = false;
+  bookId: number;
+  book: BookDetailed;
+  loading = true;
+  likeLoading = false;
+  likedBook = false;
 
   constructor(public bookService: BookService,
               public authService: AuthenticationService,
               public userService: UserService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.loadBook();
 
     if (this.authService.currentUserValue) {
-      this.loadUser();
+      this.isBookLiked();
     }
   }
 
-  private loadUser() {
+  private isBookLiked() {
+    this.likeLoading = true;
+
     this.userService
-      .getUserInfo()
-      .subscribe((data: UserDetailed) => {
-        this.user = data;
+      .getUserLikedBooks()
+      .subscribe((books: Book[]) => {
+        this.likeLoading = false;
+        if (books) {
+          this.likedBook = books.find(b => b.id === this.bookId) != null;
+        }
       },
       error => {
+        this.likeLoading = false;
         console.log(error);
       });
   }
 
   private loadBook() {
     this.bookId = Number(this.route.snapshot.paramMap.get('id'));
-    this.bookService.getBook(this.bookId).pipe(first()).subscribe((data: BookDetailed) => {
-      this.book = data;
-      this.loading = false;
-    }, error => {
-      console.log(error);
-    });
+    this.bookService
+      .getBook(this.bookId)
+      .subscribe((data: BookDetailed) => {
+        this.book = data;
+        this.loading = false;
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   getBookImage() {
     if (!this.book.bookImage) {
       return 'assets/images/default_book.png';
     }
+
     return this.book.bookImage;
   }
 
@@ -74,25 +81,19 @@ export class BookInfoComponent implements OnInit {
     return (this.book.summaryRating / this.book.reviewCount).toFixed(1);
   }
 
-  likedBook(): boolean {
-
-    console.log(this.bookId);
-
-    if (this.user && this.user.likedBooks) {
-      return this.user.likedBooks.find(b => b.id === this.bookId) != null;
-    }
-
-    return false;
-  }
 
   addToFavorites() {
+    if (!this.authService.currentUserValue || this.authService.isTokenExpired()) {
+      this.router.navigate(['/login']);
+    }
+
     this.likeLoading = true;
 
     this.userService
       .likeBook(this.bookId)
       .subscribe((data: UserDetailed) => {
         this.likeLoading = false;
-        this.user = data;
+        this.likedBook = true;
       },
       error => {
         this.likeLoading = false;

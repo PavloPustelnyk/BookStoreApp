@@ -14,11 +14,11 @@
       <div>Rating: {{getBookRating()}}</div>
       <div><a [routerLink]="['/', 'authors', book.authorId]">Author: {{getBookAuthor()}}</a></div>
       <div *ngIf="authService.currentUserValue"><br>
-        <button *ngIf="!likedBook()" class="btn btn-outline-dark" (click)="addToFavorites()">
+        <button *ngIf="!likedBook" class="btn btn-outline-dark" (click)="addToFavorites()">
           <span *ngIf="likeLoading" class="spinner-border spinner-border-sm mr-1"></span>
           Add to favorites
         </button>
-        <button *ngIf="likedBook()" class="btn btn-outline-dark" [disabled]="true">
+        <button *ngIf="likedBook" class="btn btn-outline-dark" [disabled]="true">
           Already added to favorites
         </button>
       </div>
