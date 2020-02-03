@@ -12,15 +12,11 @@ import { Observable } from 'rxjs';
 })
 export class BooksListComponent implements OnInit {
 
-  public pagesCount: number;
-
-  public page: number;
-
-  public categoryId: number;
-
-  public loading = true;
-
-  public books: BookDetailed[];
+  pagesCount: number;
+  page: number;
+  categoryId: number;
+  loading = true;
+  books: BookDetailed[];
 
   constructor(public bookService: BookService,
               private route: ActivatedRoute) { }
