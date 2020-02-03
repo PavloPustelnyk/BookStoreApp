@@ -13,9 +13,9 @@ export class AuthorService {
   public pagesCount: number;
   public authors: AuthorDetailed[];
 
-  constructor(private httpClient: HttpClient) { }
+  public constructor(private httpClient: HttpClient) { }
 
-  getPagesCount() {
+  public getPagesCount() {
     return this.httpClient.get<any>(`${environment.apiUrl}/authors/pages`)
       .pipe(map((pages: number) => {
         this.pagesCount = pages;
@@ -26,7 +26,7 @@ export class AuthorService {
       }));
   }
 
-  getBooksPage(page: number) {
+  public getBooksPage(page: number) {
     return this.httpClient.get<AuthorDetailed[]>(`${environment.apiUrl}/authors/page/${page}`)
       .pipe(map((authors: AuthorDetailed[]) => {
         this.authors = authors;
@@ -37,7 +37,7 @@ export class AuthorService {
       }));
   }
 
-  getAuthor(id: number) {
+  public getAuthor(id: number) {
     return this.httpClient.get<AuthorDetailed>(`${environment.apiUrl}/authors/${id}`)
       .pipe(map((author: AuthorDetailed) => {
         return author;
@@ -47,7 +47,7 @@ export class AuthorService {
       }));
   }
 
-  postAuthor(author: Author) {
+  public postAuthor(author: Author) {
     return this.httpClient
       .post<Author>(`${environment.apiUrl}/authors`, author)
       .pipe(map((data: Author) => {
