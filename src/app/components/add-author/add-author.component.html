@@ -1,0 +1,46 @@
+<div class="col-md-4 offset-md-4 mt-5">
+  <div class="card">
+      <h4 class="card-header text-center">Add New Author</h4>
+      <div class="card-body">
+          <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.title.errors }"/>
+                  <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                    <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"/>
+                  <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                    <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="birthDate">Birth Date</label>
+                <input type="date" formControlName="birthDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.birthDate.errors }"/>
+                <div *ngIf="submitted && f.birthDate.errors" class="invalid-feedback">
+                  <div *ngIf="f.birthDate.errors.required">Birth Date is required</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="image">Author Avatart</label>
+                <input type="file" formControlName="image" class="form-control" (change)='onFileChange($event)'
+                [ngClass]="{ 'is-invalid': submitted && f.image.errors }"/>
+              </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea formControlName="description" class="form-control"></textarea>
+              </div>
+              <button [disabled]="loading" class="btn btn-dark container">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm text-light mr-1"></span>
+                Add Author
+              </button>
+              <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+              <div *ngIf="postError" class="alert alert-danger mt-3 mb-0">Post error!</div>
+          </form>
+      </div>
+  </div>
+</div>
+
