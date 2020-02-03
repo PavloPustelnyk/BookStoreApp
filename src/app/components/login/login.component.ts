@@ -49,14 +49,20 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
 
-    this.authService.login(user).pipe(first()).subscribe(data => {
-      this.loading = false;
-      this.router.navigate(['/']);
-    },
-    error => {
-      this.loading = false;
-      console.log(error);
-      this.loginError = true;
+    this.authService
+      .login(user)
+      .subscribe(data => {
+        this.loading = false;
+        this.router.navigate(['/']);
+      },
+      error => {
+        this.loading = false;
+
+        if (error.status === 400) {
+          this.loginError = true;
+        }
+
+        console.log(error);
     });
   }
 

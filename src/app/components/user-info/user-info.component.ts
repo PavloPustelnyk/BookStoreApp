@@ -10,9 +10,8 @@ import { UserDetailed } from '../../_models/_detailed/user-detailed';
 })
 export class UserInfoComponent implements OnInit {
 
-  public loading = true;
-
-  public user: UserDetailed;
+  loading = true;
+  user: UserDetailed;
 
   constructor(private userService: UserService) { }
 
@@ -21,11 +20,15 @@ export class UserInfoComponent implements OnInit {
   }
 
   private loadUserInfo() {
-    this.userService.getUserInfo().pipe(first()).subscribe((data: UserDetailed) => {
-      this.user = data;
-      this.loading = false;
-    }, error => {
-      console.log(error);
-    });
+    this.userService
+      .getUserInfo()
+      .subscribe((data: UserDetailed) => {
+        this.loading = false;
+        this.user = data;
+      },
+      error => {
+        this.loading = false;
+        console.log(error.message);
+      });
   }
 }

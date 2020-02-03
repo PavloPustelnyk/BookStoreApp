@@ -11,11 +11,9 @@ import { LoggedSubject } from '../../_models/_detailed/logged-subject';
 })
 export class NavBarComponent implements OnInit {
 
-  public userRole: string;
-
-  public adminRole: string;
-
-  public currUser: LoggedSubject;
+  userRole: string;
+  adminRole: string;
+  currUser: LoggedSubject;
 
   constructor(public authService: AuthenticationService,
               private router: Router) {
