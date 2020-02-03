@@ -10,6 +10,7 @@
     </div>
     <div class="col-sm-7 offset-5 mr-2">
       <h1 class="text-center">{{getAuthorName()}}</h1>
+      <div class="text-justify">{{author.description}}</div><br>
       <div>
         <h2 class="">Books</h2>
         <a *ngFor="let book of author.books; let i = index" [routerLink]="['/', 'books', book.id]">

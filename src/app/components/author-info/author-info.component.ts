@@ -26,11 +26,12 @@ export class AuthorInfoComponent implements OnInit {
 
   private loadAuthor() {
     this.authorId = Number(this.route.snapshot.paramMap.get('id'));
-    this.authorService.getBook(this.authorId).pipe(first()).subscribe((data: AuthorDetailed) => {
+    this.authorService.getAuthor(this.authorId).pipe(first()).subscribe((data: AuthorDetailed) => {
       this.author = data;
       this.loading = false;
     }, error => {
-      console.log(error);
+      this.loading = false;
+      console.log(error.message);
     });
   }
 
