@@ -1,6 +1,35 @@
-<div>
-  admin
+<div class="col-md-4 offset-md-4 mt-5">
+  <div class="card">
+      <h4 class="card-header text-center">BookStore Register</h4>
+      <div class="card-body">
+          <form [formGroup]="adminForm">
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="category" name="action"
+                formControlName="action" value="category" mdbInput>
+              <label class="custom-control-label" for="category">Add Category</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="book" name="action"
+                formControlName="action" value="book" mdbInput>
+              <label class="custom-control-label" for="book">Add Book</label>
+            </div>
+
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="author" name="action"
+                formControlName="action" value="author" mdbInput>
+              <label class="custom-control-label" for="author">Add Author</label>
+            </div>
+          </form>
+      </div>
+  </div>
 </div>
-<div>
+<div *ngIf="f.action.value === 'book'">
   <app-add-book></app-add-book>
+</div>
+<div *ngIf="f.action.value === 'category'">
+  <app-add-category></app-add-category>
+</div>
+<div *ngIf="f.action.value === 'author'">
+  <app-add-author></app-add-author>
 </div>

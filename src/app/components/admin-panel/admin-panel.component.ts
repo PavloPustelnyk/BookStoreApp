@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-panel',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPanelComponent implements OnInit {
 
-  constructor() { }
+  adminForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder,
+              ) { }
 
   ngOnInit() {
+    this.adminForm = this.formBuilder.group({
+      action: ['category']
+    });
   }
+
+  get f() { return this.adminForm.controls; }
 
 }
