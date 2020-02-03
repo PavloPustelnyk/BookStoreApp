@@ -12,12 +12,13 @@ import { HomeComponent } from './components/home/home.component';
 import { BookCategoriesComponent } from './components/book-categories/book-categories.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { RoleGuard } from './_helpers/role.guard';
+import { ReloginGuard } from './_helpers/relogin.guard';
 
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'categories', component: BookCategoriesComponent},
-  {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginComponent, canActivate: [ReloginGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'user/info', component: UserInfoComponent},
   {path: 'books/:id', component: BookInfoComponent},
