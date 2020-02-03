@@ -24,6 +24,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddBookComponent } from './components/add-book/add-book.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { NotifierModule } from 'angular-notifier';
+import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { AddAuthorComponent } from './components/add-author/add-author.component';
 
 @NgModule({
    imports: [
@@ -32,7 +35,8 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
       HttpClientModule,
       ReactiveFormsModule,
       MatSidenavModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
+      NotifierModule
    ],
    declarations: [
     AppComponent,
@@ -50,7 +54,9 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
     HomeComponent,
     BookCategoriesComponent,
     AddBookComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    AddCategoryComponent,
+    AddAuthorComponent
    ],
    providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
