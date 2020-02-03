@@ -59,19 +59,18 @@ export class AddBookComponent implements OnInit {
 
     this.bookService
       .postBook(book)
-      .subscribe(data => {
+      .subscribe((data: Book) => {
         this.loading = false;
-        alert('success');
+        alert('Book added. Id: ' + data.id);
       },
       error => {
         this.loading = false;
-        alert(error);
+        alert(error.message);
       });
 
   }
 
   onFileChange(event) {
-    console.log('chaneg');
     const reader = new FileReader();
 
     if (event.target.files && event.target.files.length) {
@@ -79,7 +78,6 @@ export class AddBookComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.base64file = reader.result.toString();
-        console.log(this.base64file);
         this.cd.markForCheck();
       };
     }
