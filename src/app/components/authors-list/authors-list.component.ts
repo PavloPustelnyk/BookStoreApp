@@ -23,8 +23,11 @@ export class AuthorsListComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadPagesCount();
-    this.loadAuthorPage();
+    this.route.paramMap.subscribe(params => {
+      this.loading = true;
+      this.loadPagesCount();
+      this.loadAuthorPage();
+    });
   }
 
   private loadAuthorPage() {
@@ -36,7 +39,7 @@ export class AuthorsListComponent implements OnInit {
         this.loading = false;
         this.authors = data;
       }, error => {
-        console.log(error);
+        console.log(error.message);
       });
   }
 
@@ -47,7 +50,7 @@ export class AuthorsListComponent implements OnInit {
         this.pagesCount = data;
       },
       error => {
-        console.log(error);
+        console.log(error.message);
       });
   }
 

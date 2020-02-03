@@ -15,7 +15,7 @@
   <div class="col-sm-1"></div>
 </div>
 <div class="row uk-margin-bottom text-center mt-3">
-  <div class="col-10 offset-2 mt-2 text-center center">
+  <div class="col-10 offset-1 mt-2 text-center center">
     <button [routerLink]="['/','authors', 'page', i + 1]"
       *ngFor='let p of counter(pagesCount); let i = index' [disabled]='i + 1 === this.page' class="btn btn-light">
       {{i + 1}}
