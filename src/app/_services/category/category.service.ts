@@ -9,12 +9,23 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoryService {
 
-  constructor(private httpClient: HttpClient) { }
+  public constructor(private httpClient: HttpClient) { }
 
-  getCategories() {
+  public getCategories() {
     return this.httpClient.get<Category[]>(`${environment.apiUrl}/categories`)
       .pipe(map((categories: Category[]) => {
         return categories;
+      },
+      error => {
+        console.log(error);
+      }));
+  }
+
+  public postCategory(category: Category) {
+    return this.httpClient
+      .post<Category>(`${environment.apiUrl}/categories`, category)
+      .pipe(map((data: Category) => {
+        return data;
       },
       error => {
         console.log(error);
