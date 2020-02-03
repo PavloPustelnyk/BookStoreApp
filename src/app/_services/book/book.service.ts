@@ -12,9 +12,9 @@ export class BookService {
 
   public pagesCount: number;
 
-  constructor(private httpClient: HttpClient) { }
+  public constructor(private httpClient: HttpClient) { }
 
-  getPagesCount() {
+  public getPagesCount() {
     return this.httpClient.get<any>(`${environment.apiUrl}/books/pages`)
       .pipe(map((pages: number) => {
         this.pagesCount = pages;
@@ -25,7 +25,7 @@ export class BookService {
       }));
   }
 
-  getCategoryPagesCount(categoryId: number) {
+  public getCategoryPagesCount(categoryId: number) {
     return this.httpClient.get<any>(`${environment.apiUrl}/categories/${categoryId}/books/pages`)
       .pipe(map((pages: number) => {
         this.pagesCount = pages;
@@ -36,7 +36,7 @@ export class BookService {
       }));
   }
 
-  getBooksPage(page: number) {
+  public getBooksPage(page: number) {
     return this.httpClient.get<BookDetailed[]>(`${environment.apiUrl}/books/page/${page}`)
       .pipe(map((books: BookDetailed[]) => {
         return books;
@@ -46,7 +46,7 @@ export class BookService {
       }));
   }
 
-  getBook(id: number) {
+  public getBook(id: number) {
     return this.httpClient.get<BookDetailed>(`${environment.apiUrl}/books/${id}`)
       .pipe(map((book: BookDetailed) => {
         return book;
@@ -56,7 +56,7 @@ export class BookService {
       }));
   }
 
-  getBooksPageOfCategory(page: number, categoryId: number) {
+  public getBooksPageOfCategory(page: number, categoryId: number) {
     return this.httpClient.get<BookDetailed[]>(`${environment.apiUrl}/categories/${categoryId}/books/page/${page}`)
       .pipe(map((books: BookDetailed[]) => {
         return books;
@@ -66,14 +66,14 @@ export class BookService {
       }));
   }
 
-  postBook(book: Book) {
+  public postBook(book: Book) {
     return this.httpClient
       .post<Book>(`${environment.apiUrl}/books`, book)
       .pipe(map((data: Book) => {
-        alert('Added ' + data);
+        return data;
       },
       error => {
-        alert('Error ' + error);
+        console.log(error);
       }));
   }
 
