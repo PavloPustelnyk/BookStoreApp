@@ -1,5 +1,6 @@
-import { UserDetailed } from './user-detailed';
+import { User } from '../_simplified/user';
+
 export class LoggedSubject {
-  public user: UserDetailed;
+  public user: User;
   public accessToken: string;
 }
