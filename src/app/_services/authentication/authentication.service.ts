@@ -24,15 +24,15 @@ export class AuthenticationService {
 
   public get currentUserValue(): LoggedSubject {
     return this.currentUserSubject.value;
-}
+  }
 
-  register(userRegister: UserRegister) {
+  public register(userRegister: UserRegister) {
     return this.httpClient
       .post<any>(`${environment.apiUrl}/register`, userRegister)
       .pipe();
   }
 
-  login(userLogin: UserLogin) {
+  public login(userLogin: UserLogin) {
     return this.httpClient
       .post<LoggedSubject>(`${environment.apiUrl}/login`, userLogin)
       .pipe(map(( user: LoggedSubject) => {
@@ -45,12 +45,12 @@ export class AuthenticationService {
         }));
   }
 
-  logout() {
+  public logout() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
 
-  getCurrentRole(): string {
+  public getCurrentRole(): string {
     if (this.currentUserValue) {
       const decoded = jwt_decode(this.currentUserValue.accessToken);
       const currRole = decoded[
@@ -60,6 +60,36 @@ export class AuthenticationService {
       return currRole;
     }
     return null;
+  }
+
+  public getTokenExpirationDate(): Date {
+    if (!this.currentUserValue) {
+      return null;
+    }
+
+    const decoded = jwt_decode<any>(this.currentUserValue.accessToken);
+
+    if (decoded.exp === undefined) {
+      return null;
+    }
+
+    const date = new Date(0);
+    date.setUTCSeconds(decoded.exp);
+    return date;
+  }
+
+  public isTokenExpired(): boolean {
+    if (!this.currentUserValue) {
+      return false;
+    }
+
+    const date = this.getTokenExpirationDate();
+
+    if (date === undefined) {
+      return false;
+    }
+
+    return !(date.valueOf() > new Date().valueOf());
   }
 
 }
