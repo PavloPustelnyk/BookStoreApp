@@ -3,6 +3,7 @@ import { AuthorDetailed } from '../../_models/_detailed/author-detailed';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Author } from 'src/app/_models/_simplified/author';
 
 @Injectable({
   providedIn: 'root'
@@ -36,10 +37,21 @@ export class AuthorService {
       }));
   }
 
-  getBook(id: number) {
+  getAuthor(id: number) {
     return this.httpClient.get<AuthorDetailed>(`${environment.apiUrl}/authors/${id}`)
       .pipe(map((author: AuthorDetailed) => {
         return author;
+      },
+      error => {
+        console.log(error);
+      }));
+  }
+
+  postAuthor(author: Author) {
+    return this.httpClient
+      .post<Author>(`${environment.apiUrl}/authors`, author)
+      .pipe(map((data: Author) => {
+        return data;
       },
       error => {
         console.log(error);
