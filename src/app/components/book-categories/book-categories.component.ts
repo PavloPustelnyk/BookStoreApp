@@ -23,12 +23,15 @@ export class BookCategoriesComponent implements OnInit {
   }
 
   loadCategories() {
-    this.categoryService.getCategories().pipe(first()).subscribe((data: Category[]) => {
-      this.categories = data;
-      this.loading = false;
-    }, error => {
-      console.log(error);
-    });
+    this.categoryService
+      .getCategories()
+      .subscribe((data: Category[]) => {
+        this.loading = false;
+        this.categories = data;
+      },
+      error => {
+        console.log(error.message);
+      });
   }
 
 }
